@@ -7,6 +7,7 @@
 //
 
 #import "HSDatePickerViewController.h"
+#import "UIImageEffects.h"
 
 typedef enum : NSUInteger {
     DayPicker = 0,
@@ -31,6 +32,8 @@ static NSInteger kBufforRows = 30; //Number of rows that are prevent by scroll p
 @property (weak, nonatomic) IBOutlet UIButton *monthNextButton;
 @property (weak, nonatomic) IBOutlet UIButton *confirmButton;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
+
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundBlurImage;
 
 @property (nonatomic, assign) NSInteger maxRowIndex;
 @property (nonatomic, assign) NSInteger minRowIndex;
@@ -63,6 +66,11 @@ static NSInteger kBufforRows = 30; //Number of rows that are prevent by scroll p
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Set the Background Blur image
+    if (self.blurImage != nil) {
+        [self.backgroundBlurImage setImage:self.blurImage];
+    }
     
     //Set deafult values for pickers
     for (NSUInteger i = 0; i < 3; i++) {
@@ -123,6 +131,11 @@ static NSInteger kBufforRows = 30; //Number of rows that are prevent by scroll p
 }
 
 #pragma mark - Properties
+- (void) setBlurImage:(UIImage *)blurImage {
+//    _blurImage = [UIImageEffects imageByApplyingDarkEffectToImage:blurImage];
+    _blurImage = [UIImageEffects imageByApplyingDarkEffectToImage:blurImage];
+}
+
 - (UIColor *)mainColor {
     if (!_mainColor) {
         _mainColor = [UIColor whiteColor];
