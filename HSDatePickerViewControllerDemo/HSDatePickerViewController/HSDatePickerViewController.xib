@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
@@ -9,6 +10,7 @@
                 <outlet property="backButton" destination="9ad-vq-wPN" id="Fdr-5N-dFe"/>
                 <outlet property="backgroundBlurImage" destination="5yV-81-TP6" id="drH-zQ-7AH"/>
                 <outlet property="confirmButton" destination="6MW-z6-BSe" id="z7H-lH-vPz"/>
+                <outlet property="containerView" destination="r6v-4h-n2r" id="GnJ-aw-BmI"/>
                 <outlet property="monthAndYearLabel" destination="aGK-Kv-o1d" id="zTl-PR-USw"/>
                 <outlet property="monthNextButton" destination="Bs3-pZ-MLJ" id="LNp-2v-6SO"/>
                 <outlet property="monthPreviousButton" destination="ta4-hc-1FK" id="GgG-wl-va0"/>

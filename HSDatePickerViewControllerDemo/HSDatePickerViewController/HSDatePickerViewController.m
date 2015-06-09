@@ -23,6 +23,7 @@ static NSInteger kBufforRows = 30; //Number of rows that are prevent by scroll p
 @property (weak, nonatomic) IBOutlet UIView *separator1View;
 @property (weak, nonatomic) IBOutlet UIView *separator2View;
 @property (weak, nonatomic) IBOutlet UIView *separator3View;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
@@ -33,7 +34,11 @@ static NSInteger kBufforRows = 30; //Number of rows that are prevent by scroll p
 @property (weak, nonatomic) IBOutlet UIButton *confirmButton;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 
+
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundBlurImage;
+
+
+@property (nonatomic, strong) UIImage *blurImage;
 
 @property (nonatomic, assign) NSInteger maxRowIndex;
 @property (nonatomic, assign) NSInteger minRowIndex;
@@ -70,6 +75,9 @@ static NSInteger kBufforRows = 30; //Number of rows that are prevent by scroll p
     // Set the Background Blur image
     if (self.blurImage != nil) {
         [self.backgroundBlurImage setImage:self.blurImage];
+        self.containerView.backgroundColor = [UIColor clearColor];
+    } else {
+        self.containerView.backgroundColor = [UIColor lightGrayColor];
     }
     
     //Set deafult values for pickers
@@ -132,8 +140,19 @@ static NSInteger kBufforRows = 30; //Number of rows that are prevent by scroll p
 
 #pragma mark - Properties
 - (void) setBlurImage:(UIImage *)blurImage {
-//    _blurImage = [UIImageEffects imageByApplyingDarkEffectToImage:blurImage];
-    _blurImage = [UIImageEffects imageByApplyingDarkEffectToImage:blurImage];
+    if (blurImage != nil) {
+        _blurImage = [UIImageEffects imageByApplyingDarkEffectToImage:blurImage];
+    } else {
+        _blurImage = nil;
+    }
+}
+
+- (void) setDelegate:(id<HSDatePickerViewControllerDelegate>)delegate {
+    if ([delegate isKindOfClass:[UIViewController class]]) {
+        UIView* bgView = ((UIViewController*)delegate).view;
+        [self setBlurImage:[HSDatePickerViewController imageWithView:bgView]];
+    }
+    _delegate = delegate;
 }
 
 - (UIColor *)mainColor {
@@ -505,6 +524,20 @@ static NSInteger kBufforRows = 30; //Number of rows that are prevent by scroll p
         }
         [self dismissViewControllerAnimated:YES completion:success];
     }
+}
+
+#pragma mark - Helper Methods
+
++ (UIImage *) imageWithView:(UIView *)view
+{
+    UIGraphicsBeginImageContext(view.bounds.size);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return img;
 }
 
 @end

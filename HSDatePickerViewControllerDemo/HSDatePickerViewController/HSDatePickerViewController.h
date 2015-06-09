@@ -97,9 +97,6 @@ typedef enum : NSUInteger {
  *  Back button title
  */
 @property (nonatomic, strong) NSString *backButtonTitle;
-/**
- * Background image to Blur
- */
-@property (nonatomic, strong) UIImage *blurImage;
+
 
 @end

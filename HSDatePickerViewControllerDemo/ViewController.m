@@ -31,7 +31,6 @@
     if (self.selectedDate) {
         hsdpvc.date = self.selectedDate;
     }
-    hsdpvc.blurImage = [ViewController imageWithView:self.view];
     [self presentViewController:hsdpvc animated:YES completion:nil];
 }
 
@@ -43,18 +42,6 @@
     self.dateLabel.text = [dateFormater stringFromDate:date];
     
     self.selectedDate = date;
-}
-
-+ (UIImage *) imageWithView:(UIView *)view
-{
-    UIGraphicsBeginImageContext(view.bounds.size);
-    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    
-    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    return img;
 }
 
 //optional
