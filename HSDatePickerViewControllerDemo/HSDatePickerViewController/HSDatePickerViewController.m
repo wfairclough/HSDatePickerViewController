@@ -482,30 +482,24 @@ static NSInteger kBufforRows = 30; //Number of rows that are prevent by scroll p
 
 - (IBAction)confirmDate:(id)sender {
     //TODO: Set date
-    if ([self.delegate respondsToSelector:@selector(hsDatePickerPickedDate:)]) {
-        [self.delegate hsDatePickerPickedDate:[self dateWithSelectedTime]];
+    if ([self.delegate respondsToSelector:@selector(hsDatePickerPickedDate:tag:)]) {
+        [self.delegate hsDatePickerPickedDate:[self dateWithSelectedTime] tag:self.tag];
     }
     
-    if ([self.delegate respondsToSelector:@selector(hsDatePickerWillDismissWithQuitMethod:)]) {
-        [self.delegate hsDatePickerWillDismissWithQuitMethod:QuitWithResult];
-    }
     void (^success)(void) = nil;
-    if ([self.delegate respondsToSelector:@selector(hsDatePickerDidDismissWithQuitMethod:)]) {
+    if ([self.delegate respondsToSelector:@selector(hsDatePickerWillCancel)]) {
         success = ^{
-            [self.delegate hsDatePickerDidDismissWithQuitMethod:QuitWithResult];
+            [self.delegate hsDatePickerWillCancel];
         };
     }
     [self dismissViewControllerAnimated:YES completion:success];
 }
 
 - (IBAction)quitPicking:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(hsDatePickerWillDismissWithQuitMethod:)]) {
-        [self.delegate hsDatePickerWillDismissWithQuitMethod:QuitWithResult];
-    }
     void (^success)(void) = nil;
-    if ([self.delegate respondsToSelector:@selector(hsDatePickerDidDismissWithQuitMethod:)]) {
+    if ([self.delegate respondsToSelector:@selector(hsDatePickerWillCancel)]) {
         success = ^{
-            [self.delegate hsDatePickerDidDismissWithQuitMethod:QuitWithResult];
+            [self.delegate hsDatePickerWillCancel];
         };
     }
     [self dismissViewControllerAnimated:YES completion:success];
@@ -513,13 +507,10 @@ static NSInteger kBufforRows = 30; //Number of rows that are prevent by scroll p
 
 - (void)cancelTapGesture:(UITapGestureRecognizer *)sender {
     if (self.shouldDismissOnCancelTouch) {
-        if ([self.delegate respondsToSelector:@selector(hsDatePickerWillDismissWithQuitMethod:)]) {
-            [self.delegate hsDatePickerWillDismissWithQuitMethod:QuitWithResult];
-        }
         void (^success)(void) = nil;
-        if ([self.delegate respondsToSelector:@selector(hsDatePickerDidDismissWithQuitMethod:)]) {
+        if ([self.delegate respondsToSelector:@selector(hsDatePickerWillCancel)]) {
             success = ^{
-                [self.delegate hsDatePickerDidDismissWithQuitMethod:QuitWithResult];
+                [self.delegate hsDatePickerWillCancel];
             };
         }
         [self dismissViewControllerAnimated:YES completion:success];

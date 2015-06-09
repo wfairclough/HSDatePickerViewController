@@ -31,12 +31,13 @@
     if (self.selectedDate) {
         hsdpvc.date = self.selectedDate;
     }
+    [hsdpvc setTag:@"StartDate"];
     [self presentViewController:hsdpvc animated:YES completion:nil];
 }
 
 #pragma mark - HSDatePickerViewControllerDelegate
-- (void)hsDatePickerPickedDate:(NSDate *)date {
-    NSLog(@"Date picked %@", date);
+- (void)hsDatePickerPickedDate:(NSDate *)date tag:(NSString *)tag {
+    NSLog(@"Date picked %@   with tag: %@", date, tag);
     NSDateFormatter *dateFormater = [NSDateFormatter new];
     dateFormater.dateFormat = @"yyyy.MM.dd HH:mm:ss";
     self.dateLabel.text = [dateFormater stringFromDate:date];
@@ -45,12 +46,8 @@
 }
 
 //optional
-- (void)hsDatePickerDidDismissWithQuitMethod:(HSDatePickerQuitMethod)method {
-    NSLog(@"Picker did dismiss with %lu", method);
+- (void)hsDatePickerWillCancel {
+    NSLog(@"Picker did cancel");
 }
 
-//optional
-- (void)hsDatePickerWillDismissWithQuitMethod:(HSDatePickerQuitMethod)method {
-    NSLog(@"Picker will dismiss with %lu", method);
-}
 @end

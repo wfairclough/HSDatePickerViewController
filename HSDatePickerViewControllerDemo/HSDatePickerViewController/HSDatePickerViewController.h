@@ -32,20 +32,14 @@ typedef enum : NSUInteger {
  *
  *  @param date selected date and time
  */
-- (void)hsDatePickerPickedDate:(NSDate *)date;
+- (void)hsDatePickerPickedDate:(NSDate *)date tag:(NSString *)tag;
 @optional
 /**
  *  This method is called when view will be dismissed.
  *
  *  @param method of quit the view.
  */
-- (void)hsDatePickerWillDismissWithQuitMethod:(HSDatePickerQuitMethod)method;
-/**
- *  This method is called when view is dismissed.
- *
- *  @param method of quit the view.
- */
-- (void)hsDatePickerDidDismissWithQuitMethod:(HSDatePickerQuitMethod)method;
+- (void)hsDatePickerWillCancel;
 
 @end
 
@@ -97,6 +91,8 @@ typedef enum : NSUInteger {
  *  Back button title
  */
 @property (nonatomic, strong) NSString *backButtonTitle;
-
-
+/**
+ * Tag value to return with result
+ */
+@property (nonatomic, strong) NSString *tag;
 @end
